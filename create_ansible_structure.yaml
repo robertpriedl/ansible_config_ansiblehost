@@ -5,15 +5,17 @@
  
 
   tasks:
-  # - name: install required packages
-  #   ansible.builtin.yum:
-  #     name: "{{yum_ansible_packages}}"
-  #     state: latest
+  - name: install required packages
+    ansible.builtin.yum:
+      name: "{{yum_ansible_packages}}"
+      state: latest
+    become: true
   
-  # - name: Upgrade all packages
-  #   ansible.builtin.yum:
-  #     name: '*'
-  #     state: latest
+  - name: Upgrade all packages
+    ansible.builtin.yum:
+      name: '*'
+      state: latest
+    become: true
 
   - name: "create ansible folder for org {{org_name}}"
     ansible.builtin.file:
@@ -46,8 +48,14 @@
       state: present
       regexp: '^Defaults:{{ansible_user}} !requiretty\s'
       line: 'Defaults:{{ansible_user}} requiretty'
-# - name: edit ansible.cfg
-  #   ansible.builtin.template:
+
+- name: edit ansible.cfg
+    ansible.builtin.template:
+      src: ansible.cfg.j2
+      dest: /etc/ansible/ansible.cfg
+      owner: ansible
+      mode: 0644
+    become: true
 
 # TODO:
 # - create group vars and encrypt
