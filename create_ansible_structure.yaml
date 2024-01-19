@@ -72,7 +72,7 @@
       path: /etc/ansible/ansible.cfg
       section: defaults
       option: vault_password_file
-      value: "{{org_name}}-inventory/.vaultpw"
+      value: "/{{org_name}}-inventory/.vaultpw"
     become: true
 
   - name: "create ansible inventory group vars for org {{org_name}}"
