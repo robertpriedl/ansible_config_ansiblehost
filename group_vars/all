@@ -5,4 +5,4 @@ yum_ansible_packages:
   - git
   - python3
   - python3-pip
-  - ansible
+  - ansible-core
