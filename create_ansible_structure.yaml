@@ -1,0 +1,54 @@
+---
+- name: create ansible default folder structure
+  hosts: localhost
+  gather_facts: true
+ 
+
+  tasks:
+  # - name: install required packages
+  #   ansible.builtin.yum:
+  #     name: "{{yum_ansible_packages}}"
+  #     state: latest
+  
+  # - name: Upgrade all packages
+  #   ansible.builtin.yum:
+  #     name: '*'
+  #     state: latest
+
+  - name: "create ansible folder for org {{org_name}}"
+    ansible.builtin.file:
+      state: directory
+      path: "/{{org_name}}-ansible"
+      owner: "{{ansible_user}}"
+      mode: "0755"
+    become: true
+  
+  - name: "create ansible inventory folder for org {{org_name}}"
+    ansible.builtin.file:
+      state: directory
+      path: "/{{org_name}}-inventory"
+      owner: "{{ansible_user}}"
+      mode: "0700"
+    become: true
+
+  - name: configure sudoers file add nopasswd for user 
+    ansible.builtin.lineinfile:
+      # path: ~/test_sudoers
+      path: /etc/sudoers
+      state: present
+      regexp: '^{{ansible_user}} ALL\s'
+      line: '{{ansible_user}} ALL=(ALL) NOPASSWD: ALL'
+
+  - name: configure sudoers file - add requiretty'
+    ansible.builtin.lineinfile:
+      # path: ~/test_sudoers
+      path: /etc/sudoers
+      state: present
+      regexp: '^Defaults:{{ansible_user}} !requiretty\s'
+      line: 'Defaults:{{ansible_user}} requiretty'
+# - name: edit ansible.cfg
+  #   ansible.builtin.template:
+
+# TODO:
+# - create group vars and encrypt
+# - create vault file?

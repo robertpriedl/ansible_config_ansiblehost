@@ -1,0 +1,8 @@
+org_name: pritec
+ansible_user: ansible
+
+yum_ansible_packages:
+  - git
+  - python3
+  - python3-pip
+  - ansible
