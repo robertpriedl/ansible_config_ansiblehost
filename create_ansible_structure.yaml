@@ -40,6 +40,7 @@
       state: present
       regexp: '^{{ansible_user}} ALL\s'
       line: '{{ansible_user}} ALL=(ALL) NOPASSWD: ALL'
+    become: true
 
   - name: configure sudoers file - add requiretty'
     ansible.builtin.lineinfile:
@@ -48,8 +49,9 @@
       state: present
       regexp: '^Defaults:{{ansible_user}} !requiretty\s'
       line: 'Defaults:{{ansible_user}} requiretty'
+    become: true
 
-- name: edit ansible.cfg
+  - name: "edit ansible.cfg"
     ansible.builtin.template:
       src: ansible.cfg.j2
       dest: /etc/ansible/ansible.cfg
