@@ -88,8 +88,8 @@
       block: |
         Match User ansible-agent
         PasswordAuthentication no
-        ansible_user: Administrator
-        ansible_password: Pa$$w0rd
+        ansible_user: Administratori
+        ansible_password: Pa$$w0rdi
 
 # TODO:
 # - create group vars and encrypt
