@@ -68,6 +68,22 @@
       line: 'vault_password_file=/{{org_name}}-inventory/.vaultpw'
     become: true
     
+  - name: "create group-vars for windows server"
+    ansible.builtin.file:
+      path: "/{{org_name}}-inventory/group_vars/windows_server.yaml"
+      state: touch
+  
+  - name: "add line to var"
+    ansible.builtin.blockinfile:
+      # path: ~/test_sudoers
+      path: "/{{org_name}}-inventory/group_vars/windows_server.yaml"
+      append_newline: true
+      prepend_newline: true
+      block: |
+        Match User ansible-agent
+        PasswordAuthentication no
+        ansible_user: Administrator
+        ansible_password: Pa$$w0rd
 
 # TODO:
 # - create group vars and encrypt
