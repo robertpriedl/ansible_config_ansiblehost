@@ -51,9 +51,9 @@
       line: 'Defaults:{{ansible_user}} requiretty'
     become: true
 
-  - name: "edit ansible.cfg"
-    ansible.builtin.template:
-      src: ansible.cfg.j2
+  - name: "copy ansible.cfg"
+    ansible.builtin.copy:
+      src: ansible.cfg
       dest: /etc/ansible/ansible.cfg
       owner: ansible
       mode: 0644
