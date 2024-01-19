@@ -59,14 +59,20 @@
       mode: 0644
     become: true
 
-  - name: "set vault file var in ansible.cfg"
-    ansible.builtin.lineinfile:
-      # path: ~/test_sudoers
+  # - name: "set vault file var in ansible.cfg"
+  #   ansible.builtin.lineinfile:
+  #     # path: ~/test_sudoers
+  #     path: /etc/ansible/ansible.cfg
+  #     state: present
+  #     regexp: '^vault_password_file=/{{org_name}}-inventory/.vaultpw\s'
+  #     line: 'vault_password_file=/{{org_name}}-inventory/.vaultpw'
+  #   become: true
+  - name: "set vault file in ansible.cfg with ini"
+    ansible.builtin.ini_file:
       path: /etc/ansible/ansible.cfg
-      state: present
-      regexp: '^vault_password_file=/{{org_name}}-inventory/.vaultpw\s'
-      line: 'vault_password_file=/{{org_name}}-inventory/.vaultpw'
-    become: true
+      section: defaults
+      option: vault_password_file
+      value: "{{org_name}}-inventory/.vaultpw"
 
   - name: "create ansible inventory group vars for org {{org_name}}"
     ansible.builtin.file:
@@ -88,9 +94,11 @@
       block: |
         Match User ansible-agent
         PasswordAuthentication no
-        ansible_user: Administratori
-        ansible_password: Pa$$w0rdi
+        ansible_user: Administrator
+        ansible_password: Pa$$w0rd
 
 # TODO:
 # - create group vars and encrypt
 # - create vault file?
+# install pywinrm
+# install win collection ansible-galaxy collection install ansible.windows

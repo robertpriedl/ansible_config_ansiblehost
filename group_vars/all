@@ -3,6 +3,7 @@ ansible_user: ansible
 
 yum_ansible_packages:
   - git
+  - epel-release
   - python3
   - python3-pip
-  - ansible-core
+  - ansible
