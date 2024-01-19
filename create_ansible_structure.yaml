@@ -59,6 +59,16 @@
       mode: 0644
     become: true
 
+  - name: "set vault file var in ansible.cfg"
+    ansible.builtin.lineinfile:
+      # path: ~/test_sudoers
+      path: /etc/ansible/ansible.cfg
+      state: present
+      regexp: '^vault_password_file=/{{org_name}}-inventory/.vaultpw\s'
+      line: 'vault_password_file=/{{org_name}}-inventory/.vaultpw'
+    become: true
+    
+
 # TODO:
 # - create group vars and encrypt
 # - create vault file?
