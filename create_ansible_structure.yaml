@@ -67,7 +67,13 @@
       regexp: '^vault_password_file=/{{org_name}}-inventory/.vaultpw\s'
       line: 'vault_password_file=/{{org_name}}-inventory/.vaultpw'
     become: true
-    
+
+  - name: "create ansible inventory group vars for org {{org_name}}"
+    ansible.builtin.file:
+      state: directory
+      path: "/{{org_name}}-inventory/group_vars"
+      
+
   - name: "create group-vars for windows server"
     ansible.builtin.file:
       path: "/{{org_name}}-inventory/group_vars/windows_server.yaml"
