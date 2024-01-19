@@ -5,5 +5,8 @@ yum_ansible_packages:
   - git
   - epel-release
   - python3
-  - python3-pip
+  - python3.11-pip
   - ansible
+
+pip311_ansible_packages:
+  - pywinrm

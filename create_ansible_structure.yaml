@@ -17,6 +17,11 @@
       state: latest
     become: true
 
+  - name: install pip311 packages 
+    ansible.builtin.pip:
+      name: "{{pip311_ansible_packages}}"
+      executable: pip3.11
+
   - name: "create ansible folder for org {{org_name}}"
     ansible.builtin.file:
       state: directory
